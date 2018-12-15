@@ -4,6 +4,7 @@ from create_sheet import create_sheet
 from create_service import create_service
 from get_sheet import get_sheet
 from update_sheet import update_sheet
+import json
 
 
 
@@ -54,8 +55,11 @@ def filter_data(filter_by,column_no,data):
 	return filtered_data, data
 
 if __name__ == '__main__':
-	sheet_id = raw_input("Enter Sheet Id - ")
-	sheet_name = raw_input("Enter Sheet name - ")
-	column_name = raw_input("Enter Column name to extract - ")
-	values = [x for x in raw_input("Enter values to extract : ").split()]
+	data = {}
+	with open('config.json') as json_data_file:
+		data = json.load(json_data_file)
+	sheet_id = data['sheet_id']
+	sheet_name = data['sheet_name']
+	column_name = data['column_name']
+	values = data['values']
 	main(sheet_id,sheet_name,column_name,values)
